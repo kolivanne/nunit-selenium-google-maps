@@ -10,6 +10,8 @@ Additional NuGet Packages:
 - SeleniumExtras.WaitHelpers
 - Selenium.WebDriver
 
+Number of test cases to execute: 54
+
 Since the code was developed under Windows, you will have to touch a few files to make it work on a Mac.
 
 ## 💜 Getting it ready under Mac for local test executions
