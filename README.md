@@ -5,6 +5,11 @@ This demo implements an automation strategy for google maps.com, using .Net6.0 S
 The code runs Chrome and Firefox in --headless and generates report files in the project folder *Reports*. You can open each report by opening the index.html file.
 Failed test cases have a screenshot attached.
 
+Additional NuGet Packages:
+- ExtentReports.Core
+- SeleniumExtras.WaitHelpers
+- Selenium.WebDriver
+
 Since the code was developed under Windows, you will have to touch a few files to make it work on a Mac.
 
 ## 💜 Getting it ready under Mac for local test executions
