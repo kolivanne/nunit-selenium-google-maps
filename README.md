@@ -6,10 +6,6 @@ Documentation of code
 ```bash
 {projectPath}/Documentation/code/index.html
 ```
-Code coverage report
-```bash
-{projectPath}/Documentation/..
-```
 Test strategy
 ```bash
 {projectPath}/Documentation/testStrategy.pdf
