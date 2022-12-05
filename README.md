@@ -22,13 +22,6 @@ Since the code was developed under Windows, you will have to touch a few files t
 - Clean and build the project
 
 ## 🔎 Documentation
-Documentation of code
-```bash
-{projectPath}/Documentation/code/index.html
-```
-Test strategy
-```bash
-{projectPath}/Documentation/testStrategy.pdf
 ```
 Reporting
 ```bash
