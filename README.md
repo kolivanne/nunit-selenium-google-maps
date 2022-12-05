@@ -21,12 +21,6 @@ Since the code was developed under Windows, you will have to touch a few files t
 - Please adjust other variables in the class file if needed
 - Clean and build the project
 
-## 🔎 Documentation
-```
-Reporting
-```bash
-{projectPath}/Reports/
-```
 ## 🦾 CMD
 ```bash
 nunit3-console.exe ./bin/Release/GoogleMapsSeleniumCSharp.dll 
