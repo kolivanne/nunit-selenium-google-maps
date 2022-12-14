@@ -1,15 +1,14 @@
-﻿using OpenQA.Selenium;
-using GoogleMapsSeleniumCSharp.src.Utils;
+﻿using GoogleMapsSeleniumCSharp.src.Utils;
+using OpenQA.Selenium;
 
 namespace GoogleMapsSeleniumCSharp.src.Test
 {
 
     [TestFixture(BrowserType.Chrome)]
     [TestFixture(BrowserType.Firefox)]
-  // [Parallelizable(ParallelScope.Fixtures)] --> caused unstabale test runs, disabled for now
+    // [Parallelizable(ParallelScope.Fixtures)] --> caused unstabale test runs, disabled for now
     public class GoogleMapTests : TestBase
-    {
-       
+    { 
         public GoogleMapTests(BrowserType type) : base(type) { }
 
         [Test, Category("Smoke")]
@@ -33,12 +32,15 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         public void ValidSearchViaOmniboxDirectionButtonShowsTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
+
             mapsPage.ClickOmniboxDirectionButton();
-            mapsPage.FillStartAndDestination(start, destination);
-            mapsPage.AssertStartInputIsCorrect(start);
-            mapsPage.AssertDestinationInputIsCorrect(destination);
-            mapsPage.InputDirectionInputDestination.SendKeys(Keys.Enter);
-            mapsPage.AssertDisplayBestTravelModeResult();
+
+            directionsPage.FillStartAndDestination(start, destination);
+            directionsPage.AssertStartInputIsCorrect(start);
+            directionsPage.AssertDestinationInputIsCorrect(destination);
+            directionsPage.InputDirectionInputDestination.SendKeys(Keys.Enter);
+
+            travelResultPage.AssertDisplayBestTravelModeResult();
         }
 
         [TestCaseSource(typeof(TestData.TestDataENG), nameof(TestData.TestDataENG.ValidAddressesDirectionSearch)), Category("Regression")]
@@ -46,13 +48,15 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         {
             consentPage.AcceptConsent();
             mapsPage.SearchAddressWithMagnifierGlassButton(destination);
-            mapsPage.AssertDirectionButtonIsDisplayed();
-            mapsPage.ClickDirectionButton();
-            mapsPage.AssertDestinationInputIsCorrect(destination);
-            mapsPage.FillStart(start);
-            mapsPage.AssertStartInputIsCorrect(start);
-            mapsPage.InputDirectionInputStart.SendKeys(Keys.Enter);
-            mapsPage.AssertDisplayBestTravelModeResult();
+
+            searchDetailsPage.AssertDirectionButtonIsDisplayed();
+            searchDetailsPage.ClickDirectionButton();
+            directionsPage.AssertDestinationInputIsCorrect(destination);
+            directionsPage.FillStart(start);
+            directionsPage.AssertStartInputIsCorrect(start);
+            directionsPage.InputDirectionInputStart.SendKeys(Keys.Enter);
+
+            travelResultPage.AssertDisplayBestTravelModeResult();
         }
 
         [TestCaseSource(typeof(TestData.TestDataENG), nameof(TestData.TestDataENG.ValidAddressesDirectionSearch)), Category("Regression")]
@@ -60,37 +64,45 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         {
             consentPage.AcceptConsent();
             mapsPage.SearchAddressWithEnterKey(destination);
-            mapsPage.AssertDirectionButtonIsDisplayed();
-            mapsPage.ClickDirectionButton();
-            mapsPage.AssertDestinationInputIsCorrect(destination);
-            mapsPage.FillStart(start);
-            mapsPage.AssertStartInputIsCorrect(start);
-            mapsPage.InputDirectionInputStart.SendKeys(Keys.Enter);
-            mapsPage.AssertDisplayBestTravelModeResult();
+
+            searchDetailsPage.AssertDirectionButtonIsDisplayed();
+            searchDetailsPage.ClickDirectionButton();
+            directionsPage.AssertDestinationInputIsCorrect(destination);
+            directionsPage.FillStart(start);
+            directionsPage.AssertStartInputIsCorrect(start);
+            directionsPage.InputDirectionInputStart.SendKeys(Keys.Enter);
+
+            travelResultPage.AssertDisplayBestTravelModeResult();
         }
 
         [TestCase("dhjdfhjgvhjfdg", "hjsdfhjgfsdvhstreet"), Category("Regression")]
         public void InvalidSearchShowsNoTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
+
             mapsPage.ClickOmniboxDirectionButton();
-            mapsPage.FillStartAndDestination(start, destination);
-            mapsPage.AssertStartInputIsCorrect(start);
-            mapsPage.AssertDestinationInputIsCorrect(destination);
-            mapsPage.InputDirectionInputStart.SendKeys(Keys.Enter);
-            mapsPage.AssertNoTravelDetailsAreDisplayed();
+
+            directionsPage.FillStartAndDestination(start, destination);
+            directionsPage.AssertStartInputIsCorrect(start);
+            directionsPage.AssertDestinationInputIsCorrect(destination);
+            directionsPage.InputDirectionInputStart.SendKeys(Keys.Enter);
+
+            travelResultPage.AssertNoTravelDetailsAreDisplayed();
         }
 
         [TestCase("Berlin", "Australia"), Category("Regression")]
         public void MapsCannotComputeTravelRoute(string start, string destination)
         {
             consentPage.AcceptConsent();
+
             mapsPage.ClickOmniboxDirectionButton();
-            mapsPage.FillStartAndDestination(start, destination);
-            mapsPage.AssertStartInputIsCorrect(start);
-            mapsPage.AssertDestinationInputIsCorrect(destination);
-            mapsPage.InputDirectionInputStart.SendKeys(Keys.Enter);
-            mapsPage.AssertInfoTextWhenNoRouteIsAvailable();
+
+            directionsPage.FillStartAndDestination(start, destination);
+            directionsPage.AssertStartInputIsCorrect(start);
+            directionsPage.AssertDestinationInputIsCorrect(destination);
+            directionsPage.InputDirectionInputStart.SendKeys(Keys.Enter);
+
+            travelResultPage.AssertInfoTextWhenNoRouteIsAvailable();
         }
 
         [TestCaseSource(typeof(TestData.TestDataENG), nameof(TestData.TestDataENG.ValidAddresses)), Category("Regression")]
@@ -98,7 +110,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         {
             consentPage.AcceptConsent();
             mapsPage.SearchAddressWithMagnifierGlassButton(address);
-            mapsPage.AssertValidAddressDisplaysHeadLine(headline);
+            searchDetailsPage.AssertValidAddressDisplaysHeadLine(headline);
         }
 
         [Test, Category("Regression")]
@@ -106,13 +118,14 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         {
             consentPage.AcceptConsent();
             mapsPage.ClickOmniboxDirectionsMenu();
-            mapsPage.AssertInputDirectionsAreDisplayed();
+            directionsPage.AssertInputDirectionsAreDisplayed();
         }
 
         [Test, Category("Regression")]
         public void EmptySearchDoesNothing()
         {
             consentPage.AcceptConsent();
+
             mapsPage.ClickSearchButtonWithEmptyInput();
             mapsPage.AssertEmptyInputStaysEmptyAfterClickingSearch();
         }
@@ -122,7 +135,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         {
             consentPage.AcceptConsent();
             mapsPage.EnterSearchInSearchbox("111111111111");
-            mapsPage.AssertAddMissingPlaceOptionIsDisplayed();
+            searchDetailsPage.AssertAddMissingPlaceOptionIsDisplayed();
         }
 
         [TestCaseSource(typeof(TestData.TestDataENG), nameof(TestData.TestDataENG.Vacations)), Category("Regression")]
@@ -130,10 +143,9 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         {
             consentPage.AcceptConsent();
             mapsPage.SearchAddressWithMagnifierGlassButton(address);
-            mapsPage.AssertDirectionButtonIsDisplayed();
-            mapsPage.AssertFullAddressIsDisplayed(expected);
-        }
 
-      
+            searchDetailsPage.AssertDirectionButtonIsDisplayed();
+            searchDetailsPage.AssertFullAddressIsDisplayed(expected);
+        }
     }
 }

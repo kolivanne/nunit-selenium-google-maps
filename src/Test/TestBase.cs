@@ -5,6 +5,8 @@ using OpenQA.Selenium;
 using GoogleMapsSeleniumCSharp.src.Utils;
 using GoogleMapsSeleniumCSharp.src.PageObject.ConsentPage;
 using GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage;
+using GoogleMapsSeleniumCSharp.src.PageObject.SearchDetailsPage;
+using GoogleMapsSeleniumCSharp.src.PageObject.DirectionsPage;
 
 namespace GoogleMapsSeleniumCSharp.src.Test
 {
@@ -33,6 +35,9 @@ namespace GoogleMapsSeleniumCSharp.src.Test
 
         protected static GoogleConsentPage consentPage;
         protected static GoogleMapsPage mapsPage;
+        protected static SearchDetailsPage searchDetailsPage;
+        protected static DirectionsPage directionsPage;
+        protected static TravelResultPage travelResultPage;
 
         public TestBase(BrowserType type)
         {
@@ -71,6 +76,9 @@ namespace GoogleMapsSeleniumCSharp.src.Test
 
             consentPage = new GoogleConsentPage(Driver);
             mapsPage = new GoogleMapsPage(Driver);
+            searchDetailsPage = new SearchDetailsPage(Driver);
+            directionsPage = new DirectionsPage(Driver);
+            travelResultPage = new TravelResultPage(Driver);
         }
 
         /// <summary>

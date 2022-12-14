@@ -19,26 +19,6 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage
         public void ClickOmniboxDirectionButton()
         {
             OmniboxRouteButton.Click();
-            WebDriverWait.Until(ExpectedConditions.ElementToBeClickable(InputDirectionInputStart));
-        }
-
-        /// <summary>
-        /// Enter start and destination into the search
-        /// </summary>
-        public void FillStartAndDestination(string start, string destination)
-        {
-            FillStart(start);
-            InputDirectionInputDestination.Clear();
-            InputDirectionInputDestination.SendKeys(destination);
-        }
-
-        /// <summary>
-        /// Fill start location
-        /// </summary>
-        public void FillStart(string startLocation)
-        {
-            InputDirectionInputStart.Clear();
-            InputDirectionInputStart.SendKeys(startLocation);
         }
 
         /// <summary>
@@ -58,17 +38,8 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage
         {
             EnterSearchInSearchbox(destination);
             OmniboxSearchBoxButton.Click();
-            WebDriverWait.Until(ExpectedConditions.ElementToBeClickable(DirectionsButton));
         }
-        /// <summary>
-        /// Click direction button
-        /// </summary>
-        /// <param name="destination">destination</param>
-        public void ClickDirectionButton()
-        {
-            DirectionsButton.Click();
-            WebDriverWait.Until(ExpectedConditions.ElementToBeClickable(InputDirectionInputStart));
-        }
+       
         /// <summary>
         /// Click menu option to switch to directions inputs
         /// </summary>
@@ -84,7 +55,6 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage
         {
             EnterSearchInSearchbox(destination);
             OmniboxInputSearch.SendKeys(Keys.Enter);
-            WebDriverWait.Until(ExpectedConditions.ElementToBeClickable(DirectionsButton));
         }
 
         /// <summary>
