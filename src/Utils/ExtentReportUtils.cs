@@ -1,4 +1,6 @@
 ﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 
 namespace GoogleMapsSeleniumCSharp.src.Utils
@@ -8,6 +10,93 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
     /// </summary>
     public class ExtentReportUtils
     {
+        private const string REPORT_ROOT_NAME = "Report";
+        private const string CONFIG_FOLDER_NAME = "ExtentReportConfig";
+
+        /// <summary>
+        /// Checks that Firefox executable is available before running the tests (GeckdoDriver)
+        /// </summary>
+        /// <exception cref="FileNotFoundException">Invalid path</exception>
+        public static void VerifyFireFoxExecutable()
+        {
+            if (!File.Exists(FilePaths.FIREFOX_EXECUTABLE))
+            {
+                string message = "Unable to find Firefox executable, invalid path: " + FilePaths.FIREFOX_EXECUTABLE;
+                throw new FileNotFoundException(message);
+            }
+        }
+        /// <summary>
+        /// Creates HTML report for extent reporter
+        /// </summary>
+        /// <param name="browser">Current browser</param>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException">HTML reporter</exception>
+        public static ExtentHtmlReporter SetUpHtmlReporter(BrowserType browser)
+        {
+            string configPath = CONFIG_FOLDER_NAME + Path.DirectorySeparatorChar + "config.xml";
+
+            string pth = System.Reflection.Assembly.GetCallingAssembly().Location;
+            string actualPath = pth[..pth.LastIndexOf("bin")];
+
+            string projectPath = new Uri(actualPath).LocalPath;
+            string reportRootPath = projectPath + REPORT_ROOT_NAME;
+            string pathToReportFile = GetUniqueTestRunName(browser.ToString());
+            string reportPath = reportRootPath + Path.DirectorySeparatorChar + pathToReportFile;
+
+            ExtentHtmlReporter htmlReporter = new(reportPath);
+
+            if(!Directory.Exists(reportRootPath))
+            {
+                string message = "Unable to find 'Report' folder, invalid path: " + reportPath;
+                throw new DirectoryNotFoundException(message);
+            }
+
+            string absoluteConfigPath = projectPath + configPath;
+            if (!File.Exists(absoluteConfigPath))
+            {
+                string message = "Unable to find config.xml, invalid path: " + absoluteConfigPath;
+                throw new FileNotFoundException(message);
+            }
+            else
+            {
+                htmlReporter.LoadConfig(projectPath + configPath);
+            }
+
+            return htmlReporter;
+        }
+
+        public static void ReportTestResult(AventStack.ExtentReports.ExtentReports report, IWebDriver driver)
+        {
+            if(report == null)
+            {
+                string message = "No instance of extent reporter.";
+                throw new ArgumentNullException(message);
+            }
+            string currentTestName = TestContext.CurrentContext.Test.Name;
+            ExtentTest test = report.CreateTest(currentTestName);
+
+            var resultState = TestContext.CurrentContext.Result.Outcome.Status;
+            var errorMessage = TestContext.CurrentContext.Result.Message;
+
+            // it was "challenging" finding a solution to show a preview of the base64-img
+            string infotext = "See snapshot by clicking 'base64-img' </br>";
+
+            switch (resultState)
+            {
+                case TestStatus.Failed:
+                    var mediaFailed = CaptureScreenShotAndReturnModel(driver);
+                    string details = resultState + errorMessage;
+                    test.Log(Status.Fail, details + "<pre>" + TestContext.CurrentContext.Result.StackTrace + "</pre>");
+                    test.Log(Status.Fail, infotext, mediaFailed);
+                    break;
+                case TestStatus.Passed:
+                    test.Log(Status.Pass, "Test passed.");
+                    break;
+                case TestStatus.Skipped:
+                    test.Log(Status.Pass, "Test skipped.");
+                    break;
+            }
+        }
 
         /// <summary>
         /// Capture screenshot to be visible in extent report
@@ -15,21 +104,25 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
         /// <param name="driver">Browser under test</param>
         /// <param name="name">Name for the media</param>
         /// <returns>Model that shows the screenshot in the report</returns>
-        public static MediaEntityModelProvider CaptureScreenShotAndReturnModel(IWebDriver driver)
+        private static MediaEntityModelProvider CaptureScreenShotAndReturnModel(IWebDriver driver)
         {
             string screenShotName = "screenShot_" + DateTime.Now.ToString("yy-MM-ddThh_mm_ss");
             var ts = ((ITakesScreenshot)driver).GetScreenshot().AsBase64EncodedString;
 
-            return   MediaEntityBuilder.CreateScreenCaptureFromBase64String(ts, screenShotName).Build();
+            return MediaEntityBuilder.CreateScreenCaptureFromBase64String(ts, screenShotName).Build();
         }
 
         /// <summary>
         /// Gets unique test run name for the report folder
         /// </summary>
         /// <returns>Name with date time</returns>
-        public static string GetUniqueTestRunName()
+        private static string GetUniqueTestRunName(string browser)
         {
-            string name = "_" + "TestRun" + "_" + DateTime.Now.ToString("yy-MM-ddThh_mm_ss") + FilePaths.EXTENT_TESTRUN_INDEX_FILE;
+            string testRunName = browser + "_" + "TestRun" + "_";
+            string timeStamp = DateTime.Now.ToString("yy-MM-ddThh_mm_ss");
+            string indexFileName = "index.html";
+  
+            string name = testRunName + timeStamp + Path.DirectorySeparatorChar + indexFileName;
             return name;
         }
     }

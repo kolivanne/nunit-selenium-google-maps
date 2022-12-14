@@ -20,7 +20,6 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
     /// </summary>
     public static class WebDriverInit
     {
-
         /// <summary>
         /// Creates a driver instance of the selected browser
         /// </summary>
@@ -54,7 +53,7 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
                     {
                         PageLoadStrategy = PageLoadStrategy.Normal,
                         //might be a local issue on my machine and the test devices do not need this line
-                        BrowserExecutableLocation = FilePaths.VerifyFireFoxExecutable()
+                        BrowserExecutableLocation = FilePaths.FIREFOX_EXECUTABLE
                     };
                     if (runHeadless)
                     {
