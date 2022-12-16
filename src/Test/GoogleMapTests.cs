@@ -130,11 +130,11 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             mapsPage.AssertEmptyInputStaysEmptyAfterClickingSearch();
         }
 
-        [Test, Category("Regression")]
-        public void DisplayAddMissingPlaceOption()
+        [TestCase("111111111111111111"), Category("Regression")]
+        public void DisplayAddMissingPlaceOption(string invalidLocation)
         {
             consentPage.AcceptConsent();
-            mapsPage.EnterSearchInSearchbox("111111111111");
+            mapsPage.EnterSearchInSearchbox(invalidLocation);
             searchDetailsPage.AssertAddMissingPlaceOptionIsDisplayed();
         }
 

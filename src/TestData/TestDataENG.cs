@@ -13,7 +13,7 @@ namespace GoogleMapsSeleniumCSharp.src.TestData
             {
                 yield return new TestCaseData("Saarbrücker Str. 38, 10405 Berlin", "OZEANEUM, Hafenstraße 11, 18439 Stralsund");
                 yield return new TestCaseData("Otto-Flimm-Str, 53520 Nürburg", "Via dei Palchetti, 50123 Firenze FI, Italy"); 
-                yield return new TestCaseData("Gasteiner Strasse 97, Austria", "Herning, Denemark");
+                yield return new TestCaseData("Gasteiner Strasse 97, Austria", "Herning, Denmark");
                 yield return new TestCaseData("Europaplatz 1, Berlin", "Rethedamm 12, 21107 Hamburg");
             }
         }
