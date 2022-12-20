@@ -2,8 +2,7 @@
 Dear visitor,
 thanks for checking out my code!
 This demo implements an automation strategy for google maps.com, using .Net6.0 Selenium C# with NUnit.
-The code runs Chrome and Firefox in --headless and generates report files in the project folder *Reports*. You can open each report by opening the index.html file.
-Failed test cases have a screenshot attached.
+The code runs Chrome and Firefox in --headless.
 
 Additional NuGet Packages:
 - ExtentReports.Core
@@ -20,6 +19,17 @@ Since the code was developed under Windows, you will have to touch a few files t
 - Please adjust the paths for your Firefox executable (I had to add the property *BrowserExecutableLocation* due to issues with my geckodriver)
 - Please adjust other variables in the class file if needed
 - Clean and build the project
+
+## Reports
+Each test execution generates a reportfile. You can open each report by opening the index.html file.
+Failed test cases have a screenshot attached:
+```bash
+{projectPath}/Report/
+```
+In addition, other exceptions are stored in a log file:
+```bash
+{projectPath}/Report/ExceptionLog
+```
 
 ## 🦾 CMD
 ```bash

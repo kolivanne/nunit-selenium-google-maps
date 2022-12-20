@@ -10,36 +10,21 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
     /// </summary>
     public class ExtentReportUtils
     {
-        private const string REPORT_ROOT_NAME = "Report";
         private const string CONFIG_FOLDER_NAME = "ExtentReportConfig";
+        private const string CONFIG_FILE_NAME = "config.xml";
 
-        /// <summary>
-        /// Checks that Firefox executable is available before running the tests (GeckdoDriver)
-        /// </summary>
-        /// <exception cref="FileNotFoundException">Invalid path</exception>
-        public static void VerifyFireFoxExecutable()
-        {
-            if (!File.Exists(FilePaths.FIREFOX_EXECUTABLE))
-            {
-                string message = "Unable to find Firefox executable, invalid path: " + FilePaths.FIREFOX_EXECUTABLE;
-                throw new FileNotFoundException(message);
-            }
-        }
         /// <summary>
         /// Creates HTML report for extent reporter
         /// </summary>
         /// <param name="browser">Current browser</param>
-        /// <returns></returns>
+        /// <returns>HTML reporter</returns>
         /// <exception cref="FileNotFoundException">HTML reporter</exception>
         public static ExtentHtmlReporter SetUpHtmlReporter(BrowserType browser)
         {
-            string configPath = CONFIG_FOLDER_NAME + Path.DirectorySeparatorChar + "config.xml";
+            string configPath = CONFIG_FOLDER_NAME + Path.DirectorySeparatorChar + CONFIG_FILE_NAME;
 
-            string pth = System.Reflection.Assembly.GetCallingAssembly().Location;
-            string actualPath = pth[..pth.LastIndexOf("bin")];
-
-            string projectPath = new Uri(actualPath).LocalPath;
-            string reportRootPath = projectPath + REPORT_ROOT_NAME;
+            string projectPath = FilePaths.GetProjectPath();
+            string reportRootPath = projectPath + FilePaths.REPORT_ROOT_NAME;
             string pathToReportFile = GetUniqueTestRunName(browser.ToString());
             string reportPath = reportRootPath + Path.DirectorySeparatorChar + pathToReportFile;
 
@@ -65,6 +50,12 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
             return htmlReporter;
         }
 
+        /// <summary>
+        /// Creates an entry for the current test in the report
+        /// with test result and details (if the test failed)
+        /// </summary>
+        /// <param name="report">Report</param>
+        /// <param name="driver">Current browser</param>
         public static void ReportTestResult(AventStack.ExtentReports.ExtentReports report, IWebDriver driver)
         {
             if(report == null)

@@ -24,7 +24,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         /// webdriver based on browser choice in TestFixture
         /// </summary>
         protected IWebDriver Driver { get; set; }
-        protected BrowserType CurrentBrwoser { get; set; }
+        protected BrowserType CurrentBrowser { get; set; }
         /// <summary>
         /// browser of choice
         /// </summary>
@@ -37,16 +37,28 @@ namespace GoogleMapsSeleniumCSharp.src.Test
 
         public TestBase(BrowserType type)
         {
-            CurrentBrwoser= type;
+            CurrentBrowser= type;
         }
-
+        /// <summary>
+        /// Verfies the paths are correct and sets up the extent report
+        /// Will abort the test execution for Firefox if the path is not correct
+        /// </summary>
        [OneTimeSetUp]
         public void CheckPathsAndSetUpReporter()
         {
-            ExtentReportUtils.VerifyFireFoxExecutable();
+            try
+            {
+                 FilePaths.VerifyFireFoxExecutable();
+            }
+            catch(Exception ex)
+            {
+                string message = "Abort test execution for Firefox: ";
+                ExceptionLogger.LogException(message + ex.ToString());
+                Assert.Fail();
+            }
 
             extentReport = new AventStack.ExtentReports.ExtentReports();
-            var htmlReporter = ExtentReportUtils.SetUpHtmlReporter(CurrentBrwoser);
+            var htmlReporter = ExtentReportUtils.SetUpHtmlReporter(CurrentBrowser);
 
             extentReport.AttachReporter(htmlReporter);
             extentReport.AddSystemInfo("Host Name", "Google Maps Test Strategy Demo");
@@ -57,7 +69,14 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         [SetUp]
         public void Setup()
         {
-            Driver = WebDriverInit.GetBrowserOptions(CurrentBrwoser, true);
+            try 
+            { 
+                Driver = WebDriverInit.GetBrowserOptions(CurrentBrowser, true);
+            }
+            catch(Exception ex)
+            {
+                ExceptionLogger.LogException(ex.ToString());
+            }
             Driver.Manage().Window.Maximize();
 
             consentPage = new GoogleConsentPage(Driver);
@@ -74,16 +93,30 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         [TearDown]
         public void Teardown()
         {
-            ExtentReportUtils.ReportTestResult(extentReport, Driver);
-
-            Driver.Close();
-            Driver.Quit();
+            try
+            {
+                ExtentReportUtils.ReportTestResult(extentReport, Driver);
+                Driver.Close();
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogger.LogException(ex.ToString());
+            }
+          
         }
 
         [OneTimeTearDown]
         protected void StopExtentReport()
         {
-            extentReport.Flush();
+            try
+            {
+                Driver.Quit();
+                extentReport.Flush();
+            }
+            catch(Exception ex)
+            {
+                ExceptionLogger.LogException(ex.ToString());
+            }
         }
     }
 }
