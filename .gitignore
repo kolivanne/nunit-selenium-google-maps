@@ -5,6 +5,7 @@
 
 # Project specific folders
 Report/
+TestResults/
 
 # User-specific files
 *.rsuser
