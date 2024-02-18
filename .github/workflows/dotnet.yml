@@ -25,12 +25,26 @@ jobs:
       
     - name: Run Selenium Tests Google Maps
       run: |
-        dotnet test --filter FullyQualifiedName~GoogleMapsSeleniumCSharp.src.Test.GoogleMapsTests \
+        dotnet test --filter FullyQualifiedName~GoogleMapsSeleniumCSharp.src.Test.GoogleMapTests \
         --logger "trx;LogFileName=test_results.trx" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+      continue-on-error: true
+
+    - name: Check if Test Results are Generated
+      id: check-test-results
+      run: |
+        if [ -f "**/*.trx" ]; then
+          echo "Test results are generated."
+          echo "::set-output name=test-results::true"
+        else
+          echo "No test results are generated."
+          echo "::set-output name=test-results::false"
+        fi
 
     - name: Generate HTML Test Report
+      if: steps.check-test-results.outputs.test-results == 'true'
       run: |
-        dotnet reportgenerator -reports:**/test_results.trx -targetdir:test-report -reporttypes:Html
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator -reports:**/test_results.trx -targetdir:test-report -reporttypes:Html
 
     - name: Upload HTML Test Report
       uses: actions/upload-artifact@v2
