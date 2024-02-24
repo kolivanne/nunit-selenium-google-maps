@@ -45,15 +45,13 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
                         chromeOptions.AddArguments(headless);
                     } 
                     chromeOptions.AddArgument(language);
-                    driver = new ChromeDriver(FilePaths.WEBDRIVER_FOLDER, chromeOptions);
+                    driver = new ChromeDriver(chromeOptions);
                     driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(30));
                     break; 
                 case BrowserType.Firefox:
                     FirefoxOptions firefoxOptions = new()
                     {
                         PageLoadStrategy = PageLoadStrategy.Normal,
-                        //might be a local issue on my machine and the test devices do not need this line
-                        BrowserExecutableLocation = FilePaths.FIREFOX_EXECUTABLE
                     };
                     if (runHeadless)
                     {
@@ -61,7 +59,7 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
                     }
                     FirefoxProfile profile = new FirefoxProfile();
                     profile.SetPreference("intl.accept_languages", "en-GB");
-                    driver = new FirefoxDriver(FilePaths.WEBDRIVER_FOLDER, firefoxOptions);
+                    driver = new FirefoxDriver(firefoxOptions);
                     break;
                 case BrowserType.Safari:
                     SafariOptions safariOptions = new()
@@ -69,7 +67,7 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
                         PageLoadStrategy = PageLoadStrategy.Normal
                     };
                  
-                    driver = new SafariDriver(FilePaths.WEBDRIVER_FOLDER, safariOptions);
+                    driver = new SafariDriver(safariOptions);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(browser), browser, null);

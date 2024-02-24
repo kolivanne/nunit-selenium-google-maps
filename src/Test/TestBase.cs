@@ -40,23 +40,11 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             CurrentBrowser= type;
         }
         /// <summary>
-        /// Verfies the paths are correct and sets up the extent report
-        /// Will abort the test execution for Firefox if the path is not correct
+        /// Sets up the extent report
         /// </summary>
-       [OneTimeSetUp]
-        public void CheckPathsAndSetUpReporter()
+        [OneTimeSetUp]
+        public void SetUpReporter()
         {
-            try
-            {
-                 FilePaths.VerifyFireFoxExecutable();
-            }
-            catch(Exception ex)
-            {
-                string message = "Abort test execution for Firefox: ";
-                ExceptionLogger.LogException(message + ex.ToString());
-                Assert.Fail();
-            }
-
             extentReport = new AventStack.ExtentReports.ExtentReports();
             var htmlReporter = ExtentReportUtils.SetUpHtmlReporter(CurrentBrowser);
 
