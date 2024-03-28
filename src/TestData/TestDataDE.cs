@@ -39,7 +39,7 @@ namespace GoogleMapsSeleniumCSharp.src.TestData
         {
             get
             {
-                yield return new TestCaseData("Disneyland Orlando", "Orlando, FL, Vereinigte Staaten");
+                yield return new TestCaseData("Disneyland Orlando", "Florida, Vereinigte Staaten");
                 yield return new TestCaseData("opera house sydney", "Bennelong Point, Sydney NSW 2000, Australien");
                 yield return new TestCaseData("Caerphilly Castle", "Castle St, Caerphilly CF83 1JD, Vereinigtes Königreich");
                 yield return new TestCaseData("Semperoper DrEsDeN", "Theaterplatz 2, 01067 Dresden");

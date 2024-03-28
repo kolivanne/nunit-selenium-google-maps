@@ -61,7 +61,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage
         /// Enters search address
         /// </summary>
         /// <param name="searchAddress">target location</param>
-        public void EnterSearchInSearchbox(string searchAddress)
+        private void EnterSearchInSearchbox(string searchAddress)
         {
             OmniboxInputSearch.Clear();
             OmniboxInputSearch.SendKeys(searchAddress);
