@@ -28,7 +28,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             mapsPage.AssertFooterIsShown();
         }
 
-        [TestCaseSource(typeof(TestData.TestDataENG), nameof(TestData.TestDataENG.ValidAddressesDirectionSearch)), Category("Regression")]
+        [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddressesDirectionSearch)), Category("Regression")]
         public void ValidSearchViaOmniboxDirectionButtonShowsTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -43,7 +43,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             travelResultPage.AssertDisplayBestTravelModeResult();
         }
 
-        [TestCaseSource(typeof(TestData.TestDataENG), nameof(TestData.TestDataENG.ValidAddressesDirectionSearch)), Category("Regression")]
+        [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddressesDirectionSearch)), Category("Regression")]
         public void ValidSearchViaSearchboxShowsTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -59,7 +59,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             travelResultPage.AssertDisplayBestTravelModeResult();
         }
 
-        [TestCaseSource(typeof(TestData.TestDataENG), nameof(TestData.TestDataENG.ValidAddressesDirectionSearch)), Category("Regression")]
+        [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddressesDirectionSearch)), Category("Regression")]
         public void ValidSearchViaEnterKeyShowsTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -105,7 +105,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             travelResultPage.AssertInfoTextWhenNoRouteIsAvailable();
         }
 
-        [TestCaseSource(typeof(TestData.TestDataENG), nameof(TestData.TestDataENG.ValidAddresses)), Category("Regression")]
+        [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddresses)), Category("Regression")]
         public void SearchedAddressDisplayedHeadline(string address, string headline)
         {
             consentPage.AcceptConsent();
@@ -130,15 +130,15 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             mapsPage.AssertEmptyInputStaysEmptyAfterClickingSearch();
         }
 
-        [TestCase("111111111111111111"), Category("Regression")]
+        [TestCase("1234 Fake Street, Imaginary City"), Category("Regression")]
         public void DisplayAddMissingPlaceOption(string invalidLocation)
         {
             consentPage.AcceptConsent();
-            mapsPage.EnterSearchInSearchbox(invalidLocation);
+            mapsPage.SearchAddressWithEnterKey(invalidLocation);
             searchDetailsPage.AssertAddMissingPlaceOptionIsDisplayed();
         }
 
-        [TestCaseSource(typeof(TestData.TestDataENG), nameof(TestData.TestDataENG.Vacations)), Category("Regression")]
+        [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.Vacations)), Category("Regression")]
         public void SuccessfulSearchShowsFullAddress(string address, string expected)
         {
             consentPage.AcceptConsent();
