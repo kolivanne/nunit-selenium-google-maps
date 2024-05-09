@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GoogleMapsSeleniumCSharp.src.PageObject.DirectionsPage
+﻿namespace GoogleMapsSeleniumCSharp.src.PageObject.DirectionsPage
 {
     /// <summary>
     /// Assertions for directions page
@@ -19,7 +13,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.DirectionsPage
             bool isStartInputDisplayed = InputDirectionInputStart.Displayed;
             bool isDestinationInputDisplayed = InputDirectionInputDestination.Displayed;
 
-            Assert.That(isStartInputDisplayed && isDestinationInputDisplayed, Is.True);
+            Assert.That(isStartInputDisplayed && isDestinationInputDisplayed, Is.True, "Input directions are available.");
         }
         /// <summary>
         /// Test the user input is correctly displayed in the search
@@ -28,7 +22,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.DirectionsPage
         public void AssertDestinationInputIsCorrect(string expected)
         {
             string actual = InputDirectionInputDestination.GetAttribute("aria-label");
-            Assert.That(actual, Does.Contain(expected));
+            Assert.That(actual, Does.Contain(expected), "Entered destination matches input.");
         }
         /// Test the user input is correctly displayed in the search
         /// </summary>
@@ -36,7 +30,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.DirectionsPage
         public void AssertStartInputIsCorrect(string expected)
         {
             string actualStart = InputDirectionInputStart.GetAttribute("aria-label");
-            Assert.That(actualStart, Does.Contain(expected));
+            Assert.That(actualStart, Does.Contain(expected), "Entered start matches input.");
         }
     }
 }
