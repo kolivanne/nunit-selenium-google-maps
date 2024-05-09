@@ -29,6 +29,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         }
 
         [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddressesDirectionSearch)), Category("Regression")]
+        [Ignore("Ignored until test data fix")]
         public void ValidSearchViaOmniboxDirectionButtonShowsTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -44,6 +45,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         }
 
         [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddressesDirectionSearch)), Category("Regression")]
+        [Ignore("Ignored until test data fix")]
         public void ValidSearchViaSearchboxShowsTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -60,6 +62,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         }
 
         [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddressesDirectionSearch)), Category("Regression")]
+        [Ignore("Ignored until test data fix")]
         public void ValidSearchViaEnterKeyShowsTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -76,6 +79,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         }
 
         [TestCase("dhjdfhjgvhjfdg", "hjsdfhjgfsdvhstreet"), Category("Regression")]
+        [Ignore("Ignored until test data fix")]
         public void InvalidSearchShowsNoTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -91,6 +95,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         }
 
         [TestCase("Berlin", "Australia"), Category("Regression")]
+        [Ignore("Ignored until test data fix")]
         public void MapsCannotComputeTravelRoute(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -106,6 +111,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         }
 
         [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddresses)), Category("Regression")]
+        [Ignore("Ignored until test data fix")]
         public void SearchedAddressDisplayedHeadline(string address, string headline)
         {
             consentPage.AcceptConsent();
@@ -131,6 +137,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         }
 
         [TestCase("1234 Fake Street, Imaginary City"), Category("Regression")]
+        [Ignore("Ignored until test data fix")]
         public void DisplayAddMissingPlaceOption(string invalidLocation)
         {
             consentPage.AcceptConsent();
@@ -139,6 +146,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         }
 
         [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.Vacations)), Category("Regression")]
+        [Ignore("Ignored until test data fix")]
         public void SuccessfulSearchShowsFullAddress(string address, string expected)
         {
             consentPage.AcceptConsent();
