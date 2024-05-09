@@ -5,10 +5,10 @@
     /// </summary>
     public static class ExceptionLogger
     {
-        private const string FILE_NAME = "ExceptionLog-";
+        private const string exceptionLogFileName = "ExceptionLog-";
         public static void LogException(string details)
         {
-            string projectPath = FilePaths.GetProjectPath() + FilePaths.REPORT_ROOT_NAME;
+            string projectPath = FilePaths.GetProjectPath() + ProjectConstants.ReportFolderName;
             try
             {
 
@@ -17,7 +17,7 @@
                     Directory.CreateDirectory(projectPath);
 
                 }
-                string fileName = projectPath + Path.DirectorySeparatorChar + FILE_NAME + DateTime.Today.ToString("dd-MM-yyyy") + ".txt";  
+                string fileName = projectPath + Path.DirectorySeparatorChar + exceptionLogFileName + DateTime.Today.ToString("dd-MM-yyyy") + ".txt";  
                 if (!File.Exists(fileName))
                 {
                     File.Create(fileName).Dispose();

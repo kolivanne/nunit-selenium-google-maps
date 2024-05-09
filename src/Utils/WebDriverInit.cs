@@ -30,8 +30,6 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
         public static IWebDriver GetBrowserOptions(BrowserType browser, bool runHeadless) 
         {
             IWebDriver driver;
-            string headless = "--headless";
-            string language = "--lang-en";
 
             switch (browser)
             {
@@ -41,10 +39,9 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
                         PageLoadStrategy = PageLoadStrategy.Normal
                     };
                     if(runHeadless) 
-                    {
-                        chromeOptions.AddArguments(headless);
-                    } 
-                    chromeOptions.AddArgument(language);
+                     {
+                         chromeOptions.AddArguments(ProjectConstants.HeadlessExecutionFlag);
+                     } 
                     driver = new ChromeDriver(chromeOptions);
                     driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(30));
                     break; 
@@ -54,11 +51,10 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
                         PageLoadStrategy = PageLoadStrategy.Normal,
                     };
                     if (runHeadless)
-                    {
-                        firefoxOptions.AddArguments(headless);
-                    }
+                      {
+                          firefoxOptions.AddArguments(ProjectConstants.HeadlessExecutionFlag);
+                      }
                     FirefoxProfile profile = new FirefoxProfile();
-                    profile.SetPreference("intl.accept_languages", "en-GB");
                     driver = new FirefoxDriver(firefoxOptions);
                     break;
                 case BrowserType.Safari:

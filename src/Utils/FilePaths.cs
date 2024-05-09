@@ -6,11 +6,6 @@
     public static class FilePaths
     {
         /// <summary>
-        /// Parent folder name for all reports
-        /// </summary>
-        public const string REPORT_ROOT_NAME = "Report";
-        
-        /// <summary>
         /// Creates a string representing the absolute path to the project
         /// </summary>
         /// <returns>Absolute path to the project</returns>

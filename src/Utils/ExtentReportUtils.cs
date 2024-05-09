@@ -10,8 +10,8 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
     /// </summary>
     public class ExtentReportUtils
     {
-        private const string CONFIG_FOLDER_NAME = "ExtentReportConfig";
-        private const string CONFIG_FILE_NAME = "config.xml";
+        private const string configFolderName = "ExtentReportConfig";
+        private const string configFileName = "config.xml";
 
         /// <summary>
         /// Creates HTML report for extent reporter
@@ -21,10 +21,10 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
         /// <exception cref="FileNotFoundException">HTML reporter</exception>
         public static ExtentHtmlReporter SetUpHtmlReporter(BrowserType browser)
         {
-            string configPath = CONFIG_FOLDER_NAME + Path.DirectorySeparatorChar + CONFIG_FILE_NAME;
+            string configPath = configFolderName + Path.DirectorySeparatorChar + configFileName;
 
             string projectPath = FilePaths.GetProjectPath();
-            string reportRootPath = projectPath + FilePaths.REPORT_ROOT_NAME;
+            string reportRootPath = projectPath + ProjectConstants.ReportFolderName;
             string pathToReportFile = GetUniqueTestRunName(browser.ToString());
             string reportPath = reportRootPath + Path.DirectorySeparatorChar + pathToReportFile;
 

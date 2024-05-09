@@ -1,4 +1,6 @@
-﻿namespace GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage
+﻿using GoogleMapsSeleniumCSharp.src.Utils;
+
+namespace GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage
 {
     /// <summary>
     /// Assertions for google maps page
@@ -19,7 +21,7 @@
         /// <param name="currentUrl">Current browser url</param>
         public void AssertMapsUrlIsCorrect(string currentUrl)
         {
-            Assert.That(currentUrl, Is.EqualTo(GOOGLE_MAPS_URL));
+            Assert.That(currentUrl.Contains(ProjectConstants.GoogleMapsBaseUrl), Is.True);
         }
 
         /// <summary>

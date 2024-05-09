@@ -1,4 +1,5 @@
 ﻿using System;
+using GoogleMapsSeleniumCSharp.src.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -10,14 +11,12 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject
     /// </summary>
     public abstract class WebPage
     {
-        private const int WAIT_FOR_ELEMENT_TIMEOUT = 30;
-        protected const string GOOGLE_MAPS_URL = "https://www.google.com/maps";
-
+        private const int waitForElementTimeout = 30;
 
         public WebPage(IWebDriver driver)
         {
             Driver = driver;
-            WebDriverWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(WAIT_FOR_ELEMENT_TIMEOUT));
+            WebDriverWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(waitForElementTimeout));
         }
 
         protected IWebDriver Driver { get; set; }
@@ -28,7 +27,9 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject
         /// </summary>
         public void GoTo()
         {
-            Driver.Navigate().GoToUrl(GOOGLE_MAPS_URL);
+            string languageCode = $"/?hl={ProjectConstants.ForcedLanguageCode}";
+            string googleMapsUrl = ProjectConstants.GoogleMapsBaseUrl + languageCode;
+            Driver.Navigate().GoToUrl(googleMapsUrl);
             WaitForPageToLoad();
         }
 
