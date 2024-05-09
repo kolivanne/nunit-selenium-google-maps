@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GoogleMapsSeleniumCSharp.src.PageObject.SearchDetailsPage
+﻿namespace GoogleMapsSeleniumCSharp.src.PageObject.SearchDetailsPage
 {
     /// <summary>
     /// Assertions for SearchDetailsPage
@@ -16,7 +10,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.SearchDetailsPage
         /// </summary>
         public void AssertDirectionButtonIsDisplayed()
         {
-            Assert.That(DirectionsButton.Displayed, Is.True);
+            Assert.That(DirectionsButton.Displayed, Is.True, "Directions button is available.");
         }
         /// <summary>
         /// Test the full address is shown
@@ -25,7 +19,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.SearchDetailsPage
         public void AssertFullAddressIsDisplayed(string expected)
         {
             string actual = FullAddress.GetAttribute("aria-label");
-            Assert.That(actual, Does.Contain(expected));
+            Assert.That(actual, Does.Contain(expected), "Detailed address is available.");
         }
         /// <summary>
         /// Test a valid search shows a headline
@@ -33,14 +27,14 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.SearchDetailsPage
         /// <param name="expected">Headline text</param>
         public void AssertValidAddressDisplaysHeadLine(string expected)
         {
-            Assert.That(TravelTitleHeader.Text, Is.EqualTo(expected));
+            Assert.That(TravelTitleHeader.Text, Is.EqualTo(expected), "Address headline is available.");
         }
         /// <summary>
         /// Test "Add missing place" suggestion is shown
         /// </summary>
         public void AssertAddMissingPlaceOptionIsDisplayed()
         {
-            Assert.That(AddMissingPlace.Displayed, Is.True);
+            Assert.That(AddMissingPlace.Displayed, Is.True, "Missing place option is available.");
         }
     }
 }

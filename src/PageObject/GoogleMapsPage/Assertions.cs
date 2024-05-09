@@ -12,7 +12,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage
         /// </summary>
         public void AssertGoogleMapsSearchBoxIsAvailable()
         {
-            Assert.That(OmniboxInputSearch.Displayed, Is.True);
+            Assert.That(OmniboxInputSearch.Displayed, Is.True, "Search input field is available.");
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage
         /// <param name="currentUrl">Current browser url</param>
         public void AssertMapsUrlIsCorrect(string currentUrl)
         {
-            Assert.That(currentUrl.Contains(ProjectConstants.GoogleMapsBaseUrl), Is.True);
+            Assert.That(currentUrl.Contains(ProjectConstants.GoogleMapsBaseUrl), Is.True, "Google maps url is correct.");
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage
         /// </summary>
         public void AssertFooterIsShown()
         {
-            Assert.That(Footer.Enabled, Is.True);
+            Assert.That(Footer.Enabled, Is.True, "Footer is available.");
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject.GoogleMapsPage
         /// </summary>
         public void AssertEmptyInputStaysEmptyAfterClickingSearch()
         {
-            Assert.That(OmniboxInputSearch.Text, Is.Empty);
+            Assert.That(OmniboxInputSearch.Text, Is.Empty, "Search input field is empty.");
         }
         
     }
