@@ -26,10 +26,10 @@ In addition, other exceptions are stored in a log file:
 ```bash
 {projectPath}/Report/ExceptionLog
 ```
-## Documentation
-Code documentation and coverage can be found here (open the respective index.html file):
+## Code Documentation
+Code documentation can be found here (open the respective index.html file):
 ```bash
-{projectPath}/Documentation/
+{projectPath}/CodeDocumentation/index.html
 ```
 
 ## 🦾 CMD
