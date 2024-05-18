@@ -8,7 +8,7 @@
         private const string exceptionLogFileName = "ExceptionLog-";
         public static void LogException(string details)
         {
-            string projectPath = FilePaths.GetProjectPath() + ProjectConstants.ReportFolderName;
+            string projectPath = ProjectPath.GetProjectPath() + ProjectConstants.ReportFolderName;
             try
             {
 

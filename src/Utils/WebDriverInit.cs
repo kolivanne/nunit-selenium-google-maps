@@ -27,9 +27,11 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
         /// <param name="runHeadless">Set headless option for browser</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">No valid browser was selected</exception>
-        public static IWebDriver GetBrowserOptions(BrowserType browser, bool runHeadless) 
+        public static IWebDriver GetBrowserOptions(BrowserType browser) 
         {
             IWebDriver driver;
+            bool runHeadless = ProjectConstants.HeadlessExecutionFlag;
+            string headless = "--headless";
 
             switch (browser)
             {
@@ -40,7 +42,7 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
                     };
                     if(runHeadless) 
                      {
-                         chromeOptions.AddArguments(ProjectConstants.HeadlessExecutionFlag);
+                         chromeOptions.AddArguments(headless);
                      } 
                     driver = new ChromeDriver(chromeOptions);
                     driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(30));
@@ -52,7 +54,7 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
                     };
                     if (runHeadless)
                       {
-                          firefoxOptions.AddArguments(ProjectConstants.HeadlessExecutionFlag);
+                          firefoxOptions.AddArguments(headless);
                       }
                     FirefoxProfile profile = new FirefoxProfile();
                     driver = new FirefoxDriver(firefoxOptions);

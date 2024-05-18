@@ -58,8 +58,8 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         public void Setup()
         {
             try 
-            { 
-                Driver = WebDriverInit.GetBrowserOptions(CurrentBrowser, true);
+            {
+                Driver = WebDriverInit.GetBrowserOptions(CurrentBrowser);
             }
             catch(Exception ex)
             {
