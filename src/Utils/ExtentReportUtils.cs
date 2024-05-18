@@ -23,7 +23,7 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
         {
             string configPath = configFolderName + Path.DirectorySeparatorChar + configFileName;
 
-            string projectPath = FilePaths.GetProjectPath();
+            string projectPath = ProjectPath.GetProjectPath();
             string reportRootPath = projectPath + ProjectConstants.ReportFolderName;
             string pathToReportFile = GetUniqueTestRunName(browser.ToString());
             string reportPath = reportRootPath + Path.DirectorySeparatorChar + pathToReportFile;

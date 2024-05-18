@@ -10,9 +10,20 @@ Additional NuGet Packages:
 - Selenium.WebDriver
 - coverlet.collector
 
-Number of test cases to execute: 54
 
-Since the code was developed under Windows, you will have to change the path for the Firefox executable.
+## Customisation
+You can change a few inputs for the test execution by modifying the values in the *.env file
+```bash
+{projectPath}/EnvironmentVariables/
+```
+Value  | Type | Manipulation
+------------- | ------------- | -------------
+WebElementTimeout  | int | 30 if value can't be parsed to int or value is lower than 10
+ReportFolderName  | string | Only allows alphabetical values, fallback is 'Report'
+GoogleMapsBaseUrl  | string | Default Url
+ForcedLanguageCode  | string | Language codes must follow the [ISO 3166 standard](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for country codes
+HeadlessExecutionFlag  | bool | true if value can't be parsed to bool
+
 ## CI
 The project uses GitHub action which executes the end-to-end tests and generates reports when creating push and pull requests on the main branch.
 
@@ -36,4 +47,3 @@ Code documentation can be found here (open the respective index.html file):
 ```bash
 nunit3-console.exe ./bin/Release/GoogleMapsSeleniumCSharp.dll 
 ```
-The tests are executed in headless mode by default (can be changed in TestBase:SetUp())

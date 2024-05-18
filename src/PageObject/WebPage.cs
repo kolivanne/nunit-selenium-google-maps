@@ -11,12 +11,11 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject
     /// </summary>
     public abstract class WebPage
     {
-        private const int waitForElementTimeout = 30;
 
         public WebPage(IWebDriver driver)
         {
             Driver = driver;
-            WebDriverWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(waitForElementTimeout));
+            WebDriverWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(ProjectConstants.WebElementTimeout));
         }
 
         protected IWebDriver Driver { get; set; }
@@ -27,8 +26,7 @@ namespace GoogleMapsSeleniumCSharp.src.PageObject
         /// </summary>
         public void GoTo()
         {
-            string languageCode = $"/?hl={ProjectConstants.ForcedLanguageCode}";
-            string googleMapsUrl = ProjectConstants.GoogleMapsBaseUrl + languageCode;
+            string googleMapsUrl = LanguageCode.GetMapsUrlWithValidCountryCode();
             Driver.Navigate().GoToUrl(googleMapsUrl);
             WaitForPageToLoad();
         }
