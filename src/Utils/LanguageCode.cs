@@ -40,10 +40,12 @@ namespace GoogleMapsSeleniumCSharp.src.Utils
         /// <returns>List of valid language codes</returns>
         private static List<string> GetValidLanguageCodes()
         {
-            return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-                .Select(culture => new RegionInfo(culture.Name).TwoLetterISORegionName.ToLower())
+            return CultureInfo.GetCultures(CultureTypes.AllCultures)
+                .Where(culture => culture != CultureInfo.InvariantCulture) // Exclude the invariant culture
+                .Select(culture => culture.Name.ToLower())
                 .Distinct()
                 .ToList();
+
         }
     }
 }

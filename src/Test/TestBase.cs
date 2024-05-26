@@ -75,6 +75,29 @@ namespace GoogleMapsSeleniumCSharp.src.Test
         }
 
         /// <summary>
+        /// Retrieves test cases based on the user's language preference.
+        /// This method determines the language setting from the user's environment and
+        /// returns the appropriate set of test cases. If the language is not supported,
+        /// the tests are skipped with an informative message.
+        /// <param name="deTestCases">A function that returns the test cases for German ("DE").</param>
+        /// <param name="engTestCases">A function that returns the test cases for English ("ENG").</param>
+        /// <returns>An enumerable of <see cref="TestCaseData"/> containing the appropriate test cases for the selected language.</returns>
+        /// </summary>
+        protected static IEnumerable<TestCaseData> GetTestCases(Func<IEnumerable<TestCaseData>> deTestCases, Func<IEnumerable<TestCaseData>> engTestCases)
+        {
+            switch (ProjectConstants.ForcedLanguageCode)
+            {
+                case "de":
+                    return deTestCases();
+                case "en":
+                    return engTestCases();
+                default:
+                    Assert.Ignore($"Test data is not available for the given language code: '{ProjectConstants.ForcedLanguageCode}'.");
+                    return Enumerable.Empty<TestCaseData>();
+            }
+        }
+
+        /// <summary>
         /// Add test result to report
         /// Clean up driver session
         /// </summary>

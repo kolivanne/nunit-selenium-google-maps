@@ -19,7 +19,8 @@
         public void AssertFullAddressIsDisplayed(string expected)
         {
             string actual = FullAddress.GetAttribute("aria-label");
-            Assert.That(actual, Does.Contain(expected), "Detailed address is available.");
+            string cleanedAttribute = CleanAddressAttribute(actual);
+            Assert.That(cleanedAttribute, Does.Contain(expected), "Detailed address is available.");
         }
         /// <summary>
         /// Test a valid search shows a headline
@@ -35,6 +36,13 @@
         public void AssertAddMissingPlaceOptionIsDisplayed()
         {
             Assert.That(AddMissingPlace.Displayed, Is.True, "Missing place option is available.");
+        }
+
+        private string CleanAddressAttribute(string value)
+        {
+            int colonIndex = value.IndexOf(':');
+            string extracted = value.Substring(colonIndex + 1).Trim();
+            return extracted;
         }
     }
 }
