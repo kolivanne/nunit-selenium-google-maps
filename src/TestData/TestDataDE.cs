@@ -37,7 +37,7 @@ namespace GoogleMapsSeleniumCSharp.src.TestData
         /// </summary>
         public static IEnumerable<TestCaseData> Vacations()
         {
-                yield return new TestCaseData("Disneyland Orlando", "Florida, Vereinigte Staaten");
+                yield return new TestCaseData("Disneyland Orlando", "Florida");
                 yield return new TestCaseData("Caerphilly Castle", "Castle St, Caerphilly CF83 1JD, Vereinigtes Königreich");
                 yield return new TestCaseData("Semperoper DrEsDeN", "Theaterplatz 2, 01067 Dresden");
         }
