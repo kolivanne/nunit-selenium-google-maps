@@ -1,4 +1,6 @@
-﻿using GoogleMapsSeleniumCSharp.src.Utils;
+﻿using GoogleMapsSeleniumCSharp.src.TestData;
+using GoogleMapsSeleniumCSharp.src.Utils;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using OpenQA.Selenium;
 
 namespace GoogleMapsSeleniumCSharp.src.Test
@@ -10,6 +12,10 @@ namespace GoogleMapsSeleniumCSharp.src.Test
     public class GoogleMapTests : TestBase
     { 
         public GoogleMapTests(BrowserType type) : base(type) { }
+        private static IEnumerable<TestCaseData> TestCasesVacation => GetTestCases(() => TestDataDE.Vacations(), () => TestDataENG.Vacations());
+        private static IEnumerable<TestCaseData> TestCasesValidAddresses => GetTestCases(() => TestDataDE.ValidAddresses(), () => TestDataENG.ValidAddresses());
+        private static IEnumerable<TestCaseData> TestCaseMapsCannotComputeTravelRoute => GetTestCases(() => TestDataDE.MapsCannotComputeTravelRoute(), () => TestDataENG.MapsCannotComputeTravelRoute());
+        private static IEnumerable<TestCaseData> TestCasesValidAddressesDirectionSearch => GetTestCases(() => TestDataDE.ValidAddressesDirectionSearch(), () => TestDataENG.ValidAddressesDirectionSearch());
 
         [Test, Category("Smoke")]
         public void GoogleMapsIsAvailable()
@@ -28,8 +34,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             mapsPage.AssertFooterIsShown();
         }
 
-        [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddressesDirectionSearch)), Category("Regression")]
-        [Ignore("Ignored until test data fix")]
+        [Test, TestCaseSource(nameof(TestCasesValidAddressesDirectionSearch)), Category("Regression")]
         public void ValidSearchViaOmniboxDirectionButtonShowsTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -44,8 +49,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             travelResultPage.AssertDisplayBestTravelModeResult();
         }
 
-        [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddressesDirectionSearch)), Category("Regression")]
-        [Ignore("Ignored until test data fix")]
+        [Test, TestCaseSource(nameof(TestCasesValidAddressesDirectionSearch)), Category("Regression")]
         public void ValidSearchViaSearchboxShowsTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -61,8 +65,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             travelResultPage.AssertDisplayBestTravelModeResult();
         }
 
-        [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddressesDirectionSearch)), Category("Regression")]
-        [Ignore("Ignored until test data fix")]
+        [Test, TestCaseSource(nameof(TestCasesValidAddressesDirectionSearch)), Category("Regression")]
         public void ValidSearchViaEnterKeyShowsTravelDetails(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -94,8 +97,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             travelResultPage.AssertNoTravelDetailsAreDisplayed();
         }
 
-        [TestCase("Berlin", "Australia"), Category("Regression")]
-        [Ignore("Ignored until test data fix")]
+        [Test, TestCaseSource(nameof(TestCaseMapsCannotComputeTravelRoute)), Category("Regression")]
         public void MapsCannotComputeTravelRoute(string start, string destination)
         {
             consentPage.AcceptConsent();
@@ -110,8 +112,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             travelResultPage.AssertInfoTextWhenNoRouteIsAvailable();
         }
 
-        [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.ValidAddresses)), Category("Regression")]
-        [Ignore("Ignored until test data fix")]
+        [Test, TestCaseSource(nameof(TestCasesValidAddresses)), Category("Regression")]
         public void SearchedAddressDisplayedHeadline(string address, string headline)
         {
             consentPage.AcceptConsent();
@@ -145,8 +146,7 @@ namespace GoogleMapsSeleniumCSharp.src.Test
             searchDetailsPage.AssertAddMissingPlaceOptionIsDisplayed();
         }
 
-        [TestCaseSource(typeof(TestData.TestDataDE), nameof(TestData.TestDataDE.Vacations)), Category("Regression")]
-        [Ignore("Ignored until test data fix")]
+        [Test, TestCaseSource(nameof(TestCasesVacation)), Category("Regression")]
         public void SuccessfulSearchShowsFullAddress(string address, string expected)
         {
             consentPage.AcceptConsent();
