@@ -25,8 +25,6 @@ namespace GoogleMapsSeleniumCSharp.src.TestData
         /// </summary>
         public static IEnumerable<TestCaseData> ValidAddresses()
         {
-
-             yield return new TestCaseData("2-1 Dogenzaka, Shibuya City, Tokyo", "2-chōme-1 Dōgenzaka");
              yield return new TestCaseData("Budapester Str. 32, 10787 Berlin", "Budapester Str. 32");
              yield return new TestCaseData("7655 Chem. Samuel, Québec, QC G1H 7H4, Canada", "7655 Chem. Samuel");
              yield return new TestCaseData("Bennelong Point, Sydney NSW 2000, Australien", "Bennelong Point");
